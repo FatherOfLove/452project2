@@ -1,5 +1,5 @@
 #include "AES.h"
-
+#include <iostream>
 /**
  * Sets the key to use
  * @param key - the first byte of this represents whether
@@ -10,7 +10,7 @@
  */
 bool AES::setKey(const unsigned char* keyArray)
 {
-    
+
     // TODO: AES implementation of openssl cares about whether
     // you are encrypting or decrypting when setting the key.
     // That is, when encrypting you use function AES_set_encrypt_key(...)
@@ -27,14 +27,15 @@ bool AES::setKey(const unsigned char* keyArray)
     // and aes.cpp example provided with the assignment.
     if (strlen((char*)(keyArray)) != 17)
     {
+      std::cout <<"cipherkey  = " << keyArray <<std::endl;
         fprintf(stderr, "ERROR [%s %s %d]: Invalid length of key.\n",
                 __FILE__, __FUNCTION__, __LINE__);
         return false;
     }
-    
+
     //copy the keyarray to key
     //for (i = )
-    
+
     unsigned char* key = new unsigned char[16];
     //strncpy(key,((char*)keyArray)+1, 16);
     for (int i =1; i < 17; i++){
@@ -63,10 +64,10 @@ bool AES::setKey(const unsigned char* keyArray)
         fprintf(stderr, "ERROR [%s %s %d]: Invalid key!.\n");
         return false;
     }
-    
-    
+
+
     //return false;
-    
+
 }
 
 /**
@@ -76,16 +77,16 @@ bool AES::setKey(const unsigned char* keyArray)
  */
 unsigned char* AES::encrypt(const unsigned char* plainText)
 {
-    
+
     //TODO: 1. Dynamically allocate a block to store the ciphertext.
-    unsigned char* e_result = new unsigned char [16];
+    unsigned char* e_result = new unsigned char [17];
     //    2. Use AES_ecb_encrypt(...) to encrypt the text (please see the URL in setKey(...)
     //    and the aes.cpp example provided.
     //memset(e_result, 0, 17);
     AES_ecb_encrypt(plainText, e_result, &this->enc_key, AES_ENCRYPT);
     //     3. Return the pointer to the ciphertext
     return e_result;
-    
+
     //return NULL
 }
 
@@ -96,7 +97,7 @@ unsigned char* AES::encrypt(const unsigned char* plainText)
  */
 unsigned char* AES::decrypt(const unsigned char* cipherText)
 {
-    
+
     //TODO: 1. Dynamically allocate a block to store the plaintext.
     unsigned char* d_result = new unsigned char [17];
     //    2. Use AES_ecb_encrypt(...) to decrypt the text (please see the URL in setKey(...)
@@ -105,7 +106,7 @@ unsigned char* AES::decrypt(const unsigned char* cipherText)
     AES_ecb_encrypt(cipherText, d_result, &this->dec_key, AES_DECRYPT);
     //     3. Return the pointer to the plaintext
     return d_result;
-    
-    
+
+
     //return NULL;
 }

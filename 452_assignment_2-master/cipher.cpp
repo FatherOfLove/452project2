@@ -8,7 +8,7 @@
 #include "AES.h"
 using namespace std;
 #define DES_KEY_LENGTH 16
-#define AES_KEY_LENGTH 16
+#define AES_KEY_LENGTH 17
 
 int main(int argc, char** argv)
 {
@@ -24,6 +24,7 @@ int main(int argc, char** argv)
 
 
 	string cipherType = argv[1];
+
 	char * cipherKeyString = argv[2];
 	string cipherKeyStringSpiteCpp = argv[2];
 	string encodingType = argv[3];
@@ -39,11 +40,11 @@ int main(int argc, char** argv)
 
 
 
-	CipherInterface* cipher = NULL; 
+	CipherInterface* cipher = NULL;
 
 	// Check if all arguments are present
 	if (!outputFileName || !inputFileName) {
-		fprintf(stderr, "ERROR [%s %s %d]: Missing arguments\n",	
+		fprintf(stderr, "ERROR [%s %s %d]: Missing arguments\n",
 		__FILE__, __FUNCTION__, __LINE__);
 		exit(-1);
 	}
@@ -60,16 +61,16 @@ int main(int argc, char** argv)
 
 
 	if ((cipherType == "DES" || cipherType == "des") && cipherKeyLength == DES_KEY_LENGTH) {
-		/* Create an instance of the DES cipher */	
-		cipher = new DES(); 
+		/* Create an instance of the DES cipher */
+		cipher = new DES();
 		blockSize = 8;
 	}
 	else if ((cipherType == "AES" || cipherType == "aes") && cipherKeyLength == AES_KEY_LENGTH)  {
-		cipher = new AES(); 
+		cipher = new AES();
 		blockSize = 16;
 	}
 	else {
-		fprintf(stderr, "ERROR [%s %s %d]: Invalid encryption type. Please use DES or AES \n",	
+		fprintf(stderr, "ERROR [%s %s %d]: Invalid encryption type. Please use DES or AES \n",
 		__FILE__, __FUNCTION__, __LINE__);
 		exit(-1);
 	}
@@ -77,25 +78,29 @@ int main(int argc, char** argv)
 	/* Error checks */
 	if(!cipher)
 	{
-		fprintf(stderr, "ERROR [%s %s %d]: could not allocate memory\n",	
+		fprintf(stderr, "ERROR [%s %s %d]: could not allocate memory\n",
 		__FILE__, __FUNCTION__, __LINE__);
 		exit(-1);
 	}
-	
+
 	// cipher->setKey((unsigned char*)cipherKey);
+	// string s( reinterpret_cast< char const* >(honestCipher) ) ;
+	// cout <<"s = " << s.erase(0,1) <<endl;
+	// cout <<"honset = " << honestCipher <<endl;
+	// unsigned char *temp =(unsigned char *)s.c_str();
 	if (cipher->setKey(honestCipher)) {
-		fprintf(stderr, "ERROR [%s %s %d]:  Invalid cipher key!\n",	
-		__FILE__, __FUNCTION__, __LINE__);
-		exit(-1);
+		// fprintf(stderr, "ERROR [%s %s %d]:  Invalid cipher key!\n",
+		// __FILE__, __FUNCTION__, __LINE__);
+		// exit(-1);
 	}
-	
+
 
 	// Open file
 	ifstream inputFileStream;
 	inputFileStream.open(inputFileName, ios::in);
 	ofstream outputFileStream;
 	outputFileStream.open(outputFileName, ios::out);
-	
+
 
 	unsigned char * blockCiphertext = new unsigned char [blockSize];
 	stringstream sstr;
@@ -104,7 +109,7 @@ int main(int argc, char** argv)
 
 
 	while (inputFileStream >> noskipws >> c) {
-		unsigned char * blockPlaintext = new unsigned char [9] ; 
+		unsigned char * blockPlaintext = new unsigned char [9] ;
 		fill(blockPlaintext, blockPlaintext + 9, ' ');
 		blockPlaintext[0] = c;
 		cout << noskipws << c << " ";
@@ -120,7 +125,7 @@ int main(int argc, char** argv)
 				//break;
 			}
 		}
-		 
+
 		if (encodingType == "ENC") {
 			outputFileStream << cipher->encrypt(blockPlaintext);
 		}
@@ -128,14 +133,14 @@ int main(int argc, char** argv)
 			outputFileStream << cipher->decrypt(blockPlaintext);
 		}
 		else {
-			fprintf(stderr, "ERROR [%s %s %d]: Invalid encryption type. Please use DES or AES \n",	
+			fprintf(stderr, "ERROR [%s %s %d]: Invalid encryption type. Please use DES or AES \n",
 		__FILE__, __FUNCTION__, __LINE__);
 		exit(-1);
 		}
-		
+
 		delete [] blockPlaintext;
 	}
-					
+
 
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 		cout << "\nOutput for Step " << mainTraceIterator << endl;
@@ -154,7 +159,7 @@ int main(int argc, char** argv)
 		// cout << "strlen(cipherKey)" << ": " << strlen(cipherKey) << endl;
 
 
-		
+
 
 	/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -164,7 +169,6 @@ int main(int argc, char** argv)
 
 
 	delete [] blockCiphertext;
-	
+
 	return 0;
 }
-

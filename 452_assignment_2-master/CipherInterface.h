@@ -18,8 +18,8 @@ class CipherInterface
 		 * The default constructor
 		 */
 		CipherInterface(){}
-		
-		
+
+
 		/**
 		 * Sets the key to use
 		 * @param key - the key to use
@@ -27,7 +27,7 @@ class CipherInterface
 		 */
 		virtual bool setKey(const unsigned char* key){ return false;  }
 
-		/**	
+		/**
 		 * Encrypts a plaintext string
 		 * @param plaintext - the plaintext string
 		 * @return - the encrypted ciphertext string
@@ -43,7 +43,7 @@ class CipherInterface
 
 		/* The protected members */
 	protected:
-	
+
 };
 
 #endif

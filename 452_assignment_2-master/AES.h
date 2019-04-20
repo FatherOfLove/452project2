@@ -9,23 +9,23 @@
 #include "CipherInterface.h"
 #include <ctype.h>
 
-#define AES_BLOCK_SIZE = 16
+#define AES_BLOCK_SIZE = 17
 
 using namespace std;
 
-/** 
+/**
  * Implements a AES cipher
  */
 class AES: public CipherInterface
 {
 	/* The public members */
 	public:
-		
+
 		/**
 		 * The default constructor
 	 	 */
 		AES(){}
-			
+
 		/**
 		 * Sets the key to use
 		 * @param key - the key to use
@@ -33,7 +33,7 @@ class AES: public CipherInterface
 		 */
 		virtual bool setKey(const unsigned char* key);
 
-		/**	
+		/**
 		 * Encrypts a plaintext string
 		 * @param plainText - the plaintext string
 		 * @return - the encrypted ciphertext string
@@ -46,8 +46,8 @@ class AES: public CipherInterface
 		 * @return - the plaintext
 		 */
 		virtual unsigned char* decrypt(const unsigned char* cipherText);
-	
-			
+
+
 	/* The protected members */
 	protected:
 
