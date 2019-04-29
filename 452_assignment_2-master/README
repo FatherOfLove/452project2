@@ -1,25 +1,32 @@
 
 
-./cipher DES 0123456789abcdef ENC INPUT_FILE.txt encoded.txt
-./cipher DES "0123456789abcdef" DEC encoded.txt decoded.txt
+– Names and email addresses of all partners.
+
+	Mikey Kaminski  lives4the69@clubpenguin.org
+	Xianghui Huang   chinahuang@csu.fullerton.edu
+	Jason Hasselle  Jhasselle@csu.fullerton.edu
+
+
+– The programming language you use (e.g. C++, Java, Python)
+	C++
+
+
+– How to execute your program.
+
+	When in the directory of the assignment enter the following into the terminal:
+	
+		"./cipher <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>"
+
+
+	cipher names = AES, DES
 
 
 
-
-
-
+– Whether you implemented the extra credit.
+	
+	Not this time.
 
 
 
 To compile, simply, type ''make'' at the terminal (without the quotes).
 
-Please do not forget to include a README file in your submission.
-It's worth 5 points.
-
-Your README file should include:
-
-– Names and email addresses of all partners.
-– The programming language you use (e.g. C++ or Java)
-– How to execute your program.
-– Whether you implemented the extra credit.
-– Anything special about your submission that we should take note of.
